@@ -1,0 +1,7 @@
+# Ignorer les fichiers .env contenant des informations sensibles
+.env
+
+# Ignorer le dossier node_modules contenant les dépendances de projet
+node_modules/
+
+
