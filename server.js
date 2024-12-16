@@ -40,8 +40,14 @@ const {
 const app = express();
 const PORT = 3000;
 
+/* "src": "/api/(.*)", */
+
 // Middleware pour parser le JSON
 app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.status(200).json('Welcome, your app is working well');
+});
 
 // Routes utilisant les méthodes définies dans methods.js
 app.get("/api/classe", getClasse); // Route GET
