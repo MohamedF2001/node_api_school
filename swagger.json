@@ -1,85 +1,23 @@
+
+
 {
     "swagger": "2.0",
     "info": {
+      "title": "Test API",
       "version": "1.0.0",
-      "title": "API Documentation",
-      "description": "Documentation interactive pour l'API"
+      "description": "API de test"
     },
     "host": "localhost:3000",
-    "basePath": "/api",
+    "basePath": "/",
     "schemes": ["http"],
     "paths": {
-      "/classe": {
+      "/test": {
         "get": {
-          "summary": "Récupérer toutes les classes",
+          "summary": "Route de test",
           "responses": {
             "200": {
-              "description": "Liste des classes",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Classe"
-                }
-              }
+              "description": "Réponse OK"
             }
-          }
-        },
-        "post": {
-          "summary": "Créer une nouvelle classe",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Classe"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Classe créée avec succès"
-            }
-          }
-        }
-      },
-      "/matiere": {
-        "get": {
-          "summary": "Récupérer toutes les matières",
-          "responses": {
-            "200": {
-              "description": "Liste des matières",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Matiere"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "definitions": {
-      "Classe": {
-        "type": "object",
-        "properties": {
-          "nom": {
-            "type": "string",
-            "example": "Classe A"
-          }
-        }
-      },
-      "Matiere": {
-        "type": "object",
-        "properties": {
-          "nom": {
-            "type": "string",
-            "example": "Mathématiques"
-          },
-          "coefficient": {
-            "type": "number",
-            "example": 2
           }
         }
       }
