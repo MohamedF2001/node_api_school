@@ -1,7 +1,7 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
-
+const path = require('path');
 const {
   getMatiere,
   postMatiere,
@@ -45,11 +45,19 @@ const PORT = 3000;
 
 /* "src": "/api/(.*)", */
 
+
+
 // Middleware pour parser le JSON
 app.use(express.json());
 
 // Ajouter la page Swagger
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Serve Swagger UI HTML file
+app.use('/api-docs', express.static(path.join(__dirname, 'public')));
+
+// Serve Swagger JSON file
+app.use('/swagger.json', express.static(path.join(__dirname, 'swagger.json')));
 
 
 app.get('/', (req, res) => {
