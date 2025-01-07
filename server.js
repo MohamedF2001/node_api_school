@@ -54,7 +54,7 @@ app.use(express.json());
 //app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Serve Swagger UI HTML file
-app.use('/api-docs', express.static(path.join(__dirname, 'public')));
+app.get('/api-docs', express.static(path.join(__dirname, 'public')));
 
 // Serve Swagger JSON file
 app.use('/swagger.json', express.static(path.join(__dirname, 'public', 'swagger.json')));
