@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors"); // Importer le module CORS
-const swaggerUi = require("swagger-ui-express");
-//const swaggerDocument = require("./swagger.json");
 const path = require('path');
 const {
   getMatiere,
@@ -51,8 +49,6 @@ app.use(cors());
 // Middleware pour parser le JSON
 app.use(express.json());
 
-// Ajouter la page Swagger
-//app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Serve Swagger UI HTML file
 app.use('/api-docs', express.static(path.join(__dirname, 'public', 'swagger.html')));
