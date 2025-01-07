@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors"); // Importer le module CORS
-const path = require('path');
+//const path = require('path');
 const {
   getMatiere,
   postMatiere,
@@ -50,11 +50,11 @@ app.use(cors());
 app.use(express.json());
 
 
-// Serve Swagger UI HTML file
+/* // Serve Swagger UI HTML file
 app.use('/api-docs', express.static(path.join(__dirname, 'public', 'swagger.html')));
 
 // Serve Swagger JSON file
-app.use('/swagger.json', express.static(path.join(__dirname, 'public', 'swagger.json')));
+app.use('/swagger.json', express.static(path.join(__dirname, 'public', 'swagger.json'))); */
 
 
 
