@@ -1,6 +1,6 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
+//const swaggerDocument = require("./swagger.json");
 const path = require('path');
 const {
   getMatiere,
@@ -57,7 +57,8 @@ app.use(express.json());
 app.use('/api-docs', express.static(path.join(__dirname, 'public')));
 
 // Serve Swagger JSON file
-app.use('/swagger.json', express.static(path.join(__dirname, 'swagger.json')));
+app.use('/swagger.json', express.static(path.join(__dirname, 'public', 'swagger.json')));
+
 
 
 app.get('/', (req, res) => {
