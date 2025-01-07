@@ -1,4 +1,6 @@
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 const {
   getMatiere,
   postMatiere,
@@ -45,8 +47,12 @@ const PORT = 3000;
 // Middleware pour parser le JSON
 app.use(express.json());
 
+// Ajouter la page Swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 app.get('/', (req, res) => {
-  res.status(200).json('Welcome, your app is working well');
+  res.status(200).json('Welcome, your app is working well okk');
 });
 
 // Routes utilisant les méthodes définies dans methods.js
