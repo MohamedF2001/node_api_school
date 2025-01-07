@@ -12,6 +12,10 @@
       
       "src": "/(.*)",
       "dest": "/server.js"
+    },
+    {
+      "src": "/swagger.json",
+      "dest": "/server.js"
     }
   ]
 }
