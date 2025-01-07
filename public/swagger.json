@@ -5,9 +5,10 @@
       "title": "API Documentation",
       "description": "Documentation interactive pour l'API"
     },
-    "host": "localhost:3000",
+    
+    "host": "mysql-2ca7e1db-frdmoussiliou-4f37.f.aivencloud.com",
     "basePath": "/api",
-    "schemes": ["http"],
+    "schemes": ["https"],
     "paths": {
       "/classe": {
         "get": {

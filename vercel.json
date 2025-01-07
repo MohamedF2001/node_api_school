@@ -4,13 +4,10 @@
     { "src": "server.js", "use": "@vercel/node" }
   ],
   "routes": [
-    
     {
-      
       "src": "/(.*)",
       "dest": "/server.js"
     },
-    
     {
       "src": "/api-docs",
       "dest": "/public/swagger.html" 
