@@ -26,7 +26,7 @@ const {
   postProfesseur,
   updateProfesseur,
   deleteProfesseur,
-  getProfesseursByMatiere,
+  //getProfesseursByMatiere,
 } = require("./methods/professeur");
 const {
   getTypeNote,
