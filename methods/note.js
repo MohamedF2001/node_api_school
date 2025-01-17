@@ -243,4 +243,4 @@ const deleteNote = (req, res) => {
 };  
 
 
-module.exports = { getNotes, postNote, updateNote, deleteNote, getNotes };
+module.exports = { getNotes, postNote, updateNote, deleteNote, getNotesFiltered };
