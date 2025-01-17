@@ -33,7 +33,7 @@ const {
   postTypeNote,
   linkTypeNoteToMatiere,
   unlinkTypeNoteFromMatiere,
-  getNotesFiltered,
+  //getNotesFiltered,
 } = require("./methods/typenote");
 const {
   getClasse,
@@ -101,7 +101,7 @@ app.post("/api/notes", postNote); // Ajouter une nouvelle note
 app.put("/api/notes/:id", updateNote); // Modifier une note existante
 app.delete("/api/notes", deleteNote); // Supprimer une note
 //router.get("/notes/classe/:classe_id", noteController.getNotesByClasse);
-app.get("api/notes/filter", getNotesFiltered);
+//app.get("api/notes/filter", getNotesFiltered);
 
 //Filtrer par classe :
 //GET /notes/filter?classe_id=2

@@ -192,7 +192,7 @@ const deleteNote = (req, res) => {
 };
 
 // Méthode GET : Récupère les notes avec des filtres dynamiques
-const getNotesFiltered = (req, res) => {
+/* const getNotesFiltered = (req, res) => {
   const { classe_id, eleve_id, matiere_id, typenote_id } = req.query;
 
   // Construction dynamique de la requête SQL
@@ -240,7 +240,7 @@ const getNotesFiltered = (req, res) => {
       res.json(results);
     }
   });
-}; 
+};  */
 
 
-module.exports = { getNotes, postNote, updateNote, deleteNote, getNotesFiltered };
+module.exports = { getNotes, postNote, updateNote, deleteNote };
