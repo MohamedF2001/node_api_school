@@ -172,7 +172,7 @@ const deleteProfesseur = (req, res) => {
 };
 
 // Méthode GET : Récupère les professeurs en fonction de la matière
-/* const getProfesseursByMatiere = (req, res) => {
+const getProfesseursByMatiere = (req, res) => {
   const { matiere_id } = req.params;
 
   if (!matiere_id || isNaN(matiere_id)) {
@@ -197,7 +197,7 @@ const deleteProfesseur = (req, res) => {
       res.json(results);
     }
   });
-}; */
+};
 
 
 module.exports = {
@@ -205,4 +205,5 @@ module.exports = {
   postProfesseur,
   updateProfesseur,
   deleteProfesseur,
+  getProfesseursByMatiere
 };

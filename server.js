@@ -26,7 +26,7 @@ const {
   postProfesseur,
   updateProfesseur,
   deleteProfesseur,
-  //getProfesseursByMatiere,
+  getProfesseursByMatiere,
 } = require("./methods/professeur");
 const {
   getTypeNote,
@@ -89,7 +89,7 @@ app.get("/api/professeur", getProfesseur); // Récupère les professeurs
 app.post("/api/professeur", postProfesseur); // Ajoute un nouveau professeur
 app.put("/api/professeur/:id", updateProfesseur); // Modifie un professeur
 app.delete("/api/professeur", deleteProfesseur); // Supprime un professeur
-//app.get("api/professeurs/matiere/:matiere_id", getProfesseursByMatiere);
+app.get("api/professeur/matiere/:matiere_id", getProfesseursByMatiere);
 
 app.get("/api/typenote", getTypeNote); // Récupérer les associations
 app.post("/api/typenote", postTypeNote); // Ajouter un type de note global
