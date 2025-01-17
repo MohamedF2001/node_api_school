@@ -13,7 +13,7 @@ const {
   postEleve,
   updateEleve,
   deleteEleve,
-  getElevesByClasse,
+  //getElevesByClasse,
 } = require("./methods/eleve");
 const {
   getNotes,
@@ -26,14 +26,14 @@ const {
   postProfesseur,
   updateProfesseur,
   deleteProfesseur,
-  getProfesseursByMatiere,
+  //getProfesseursByMatiere,
 } = require("./methods/professeur");
 const {
   getTypeNote,
   postTypeNote,
   linkTypeNoteToMatiere,
   unlinkTypeNoteFromMatiere,
-  getNotesFiltered,
+  //getNotesFiltered,
 } = require("./methods/typenote");
 const {
   getClasse,
@@ -82,14 +82,14 @@ app.get("/api/eleve", getEleve); // Récupère les élèves
 app.post("/api/eleve", postEleve); // Ajoute un nouvel élève
 app.put("/api/eleve/:id", updateEleve); // Modifie un élève
 app.delete("/api/eleve", deleteEleve); // Supprime un élève
-app.get("/api/eleve/classe/:classe_id", getElevesByClasse);
+//app.get("/api/eleve/classe/:classe_id", getElevesByClasse);
 
 // Routes pour la table Professeur
 app.get("/api/professeur", getProfesseur); // Récupère les professeurs
 app.post("/api/professeur", postProfesseur); // Ajoute un nouveau professeur
 app.put("/api/professeur/:id", updateProfesseur); // Modifie un professeur
 app.delete("/api/professeur", deleteProfesseur); // Supprime un professeur
-app.get("api/professeurs/matiere/:matiere_id", getProfesseursByMatiere);
+//app.get("api/professeurs/matiere/:matiere_id", getProfesseursByMatiere);
 
 app.get("/api/typenote", getTypeNote); // Récupérer les associations
 app.post("/api/typenote", postTypeNote); // Ajouter un type de note global
@@ -101,7 +101,7 @@ app.post("/api/notes", postNote); // Ajouter une nouvelle note
 app.put("/api/notes/:id", updateNote); // Modifier une note existante
 app.delete("/api/notes", deleteNote); // Supprimer une note
 //router.get("/notes/classe/:classe_id", noteController.getNotesByClasse);
-app.get("api/notes/filter", getNotesFiltered);
+//app.get("api/notes/filter", getNotesFiltered);
 
 //Filtrer par classe :
 //GET /notes/filter?classe_id=2
