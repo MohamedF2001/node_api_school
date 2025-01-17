@@ -171,9 +171,39 @@ const deleteProfesseur = (req, res) => {
   });
 };
 
+// Méthode GET : Récupère les professeurs en fonction de la matière
+const getProfesseursByMatiere = (req, res) => {
+  const { matiere_id } = req.params;
+
+  if (!matiere_id || isNaN(matiere_id)) {
+    res.status(400).send("Un ID de matière valide est requis");
+    return;
+  }
+
+  const selectSQL = `
+    SELECT professeur.*, matiere.nom AS matiere_nom
+    FROM professeur
+    LEFT JOIN matiere ON professeur.matiere_id = matiere.id
+    WHERE professeur.matiere_id = ?
+  `;
+
+  db.query(selectSQL, [matiere_id], (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la récupération des professeurs :", err);
+      res.status(500).send("Erreur lors de la récupération des professeurs");
+    } else if (results.length === 0) {
+      res.status(404).send("Aucun professeur trouvé pour cette matière");
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+
 module.exports = {
   getProfesseur,
   postProfesseur,
   updateProfesseur,
   deleteProfesseur,
+  getProfesseursByMatiere
 };

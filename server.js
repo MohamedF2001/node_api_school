@@ -13,6 +13,7 @@ const {
   postEleve,
   updateEleve,
   deleteEleve,
+  getElevesByClasse,
 } = require("./methods/eleve");
 const {
   getNotes,
@@ -25,12 +26,14 @@ const {
   postProfesseur,
   updateProfesseur,
   deleteProfesseur,
+  getProfesseursByMatiere,
 } = require("./methods/professeur");
 const {
   getTypeNote,
   postTypeNote,
   linkTypeNoteToMatiere,
   unlinkTypeNoteFromMatiere,
+  getNotesFiltered,
 } = require("./methods/typenote");
 const {
   getClasse,
@@ -79,12 +82,14 @@ app.get("/api/eleve", getEleve); // Récupère les élèves
 app.post("/api/eleve", postEleve); // Ajoute un nouvel élève
 app.put("/api/eleve/:id", updateEleve); // Modifie un élève
 app.delete("/api/eleve", deleteEleve); // Supprime un élève
+app.get("/api/eleve/classe/:classe_id", getElevesByClasse);
 
 // Routes pour la table Professeur
 app.get("/api/professeur", getProfesseur); // Récupère les professeurs
 app.post("/api/professeur", postProfesseur); // Ajoute un nouveau professeur
 app.put("/api/professeur/:id", updateProfesseur); // Modifie un professeur
 app.delete("/api/professeur", deleteProfesseur); // Supprime un professeur
+app.get("api/professeurs/matiere/:matiere_id", getProfesseursByMatiere);
 
 app.get("/api/typenote", getTypeNote); // Récupérer les associations
 app.post("/api/typenote", postTypeNote); // Ajouter un type de note global
@@ -95,6 +100,21 @@ app.get("/api/notes", getNotes); // Récupérer toutes les notes
 app.post("/api/notes", postNote); // Ajouter une nouvelle note
 app.put("/api/notes/:id", updateNote); // Modifier une note existante
 app.delete("/api/notes", deleteNote); // Supprimer une note
+//router.get("/notes/classe/:classe_id", noteController.getNotesByClasse);
+app.get("api/notes/filter", getNotesFiltered);
+
+//Filtrer par classe :
+//GET /notes/filter?classe_id=2
+
+//Filtrer par classe et matière :
+//GET /notes/filter?classe_id=2&matiere_id=4
+
+//Filtrer par élève, matière et type de note :
+//GET /notes/filter?eleve_id=5&matiere_id=3&typenote_id=1
+
+//Sans filtre (renvoie toutes les notes) :
+//GET /notes/filter
+
 
 // Lancement du serveur
 app.listen(PORT, () => {

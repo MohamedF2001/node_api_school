@@ -176,4 +176,31 @@ const deleteEleve = (req, res) => {
   });
 };
 
-module.exports = { getEleve, postEleve, updateEleve, deleteEleve };
+// Méthode GET : Récupère les élèves par ID de classe
+const getElevesByClasse = (req, res) => {
+  const { classe_id } = req.params;
+
+  if (!classe_id || isNaN(classe_id)) {
+    res.status(400).send("Un ID de classe valide est requis");
+    return;
+  }
+
+  const selectSQL = `
+    SELECT eleve.*, classe.nom AS classe_nom
+    FROM eleve
+    LEFT JOIN classe ON eleve.classe_id = classe.id
+    WHERE eleve.classe_id = ?
+  `;
+
+  db.query(selectSQL, [classe_id], (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la récupération des élèves :", err);
+      res.status(500).send("Erreur lors de la récupération des élèves");
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+
+module.exports = { getEleve, postEleve, updateEleve, deleteEleve, getElevesByClasse };
