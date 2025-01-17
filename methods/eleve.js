@@ -177,7 +177,7 @@ const deleteEleve = (req, res) => {
 };
 
 // Méthode GET : Récupère les élèves par ID de classe
-/* const getElevesByClasse = (req, res) => {
+const getElevesByClasse = (req, res) => {
   const { classe_id } = req.params;
 
   if (!classe_id || isNaN(classe_id)) {
@@ -200,7 +200,7 @@ const deleteEleve = (req, res) => {
       res.json(results);
     }
   });
-}; */
+}; 
 
 
-module.exports = { getEleve, postEleve, updateEleve, deleteEleve };
+module.exports = { getEleve, postEleve, updateEleve, deleteEleve, getElevesByClasse };

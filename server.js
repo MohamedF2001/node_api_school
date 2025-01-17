@@ -13,7 +13,7 @@ const {
   postEleve,
   updateEleve,
   deleteEleve,
-  //getElevesByClasse,
+  getElevesByClasse,
 } = require("./methods/eleve");
 const {
   getNotes,
@@ -82,7 +82,7 @@ app.get("/api/eleve", getEleve); // Récupère les élèves
 app.post("/api/eleve", postEleve); // Ajoute un nouvel élève
 app.put("/api/eleve/:id", updateEleve); // Modifie un élève
 app.delete("/api/eleve", deleteEleve); // Supprime un élève
-//app.get("/api/eleve/classe/:classe_id", getElevesByClasse);
+app.get("/api/eleve/classe/:classe_id", getElevesByClasse);
 
 // Routes pour la table Professeur
 app.get("/api/professeur", getProfesseur); // Récupère les professeurs
