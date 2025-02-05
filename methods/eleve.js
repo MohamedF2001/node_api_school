@@ -39,7 +39,7 @@ const getEleve = (req, res) => {
 
 // Méthode POST : Insère un nouvel élève
 const postEleve = (req, res) => {
-  const { nom, prenom, date_naissance, classe_id } = req.body;
+  const { nom, prenom, date_naissance, classe_id , matricule } = req.body;
 
   if (!nom || typeof nom !== "string") {
     res
@@ -63,12 +63,16 @@ const postEleve = (req, res) => {
       );
     return;
   }
+  if (!matricule || typeof matricule !== "string") {
+    res.status(400).send('Le champ "matricule" est requis et doit être une chaîne de caractères');
+    return;
+  }
 
   const insertSQL =
     "INSERT INTO eleve (nom, prenom, date_naissance, classe_id) VALUES (?, ?, ?, ?)";
   db.query(
     insertSQL,
-    [nom, prenom, date_naissance, classe_id || null],
+    [matricule, nom, prenom, date_naissance, classe_id || null],
     (err, result) => {
       if (err) {
         console.error("Erreur lors de l'insertion des données :", err);
@@ -76,6 +80,7 @@ const postEleve = (req, res) => {
       } else {
         res.status(201).json({
           id: result.insertId,
+          matricule,
           nom,
           prenom,
           date_naissance,
