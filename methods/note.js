@@ -192,7 +192,7 @@ const deleteNote = (req, res) => {
 };
 
 // Méthode GET : Récupère les notes avec des filtres dynamiques
-const getNotesFiltered = (req, res) => {
+/* const getNotesFiltered = (req, res) => {
   const { classe_id, eleve_id, matiere_id, typenote_id } = req.query;
 
   // Construction dynamique de la requête SQL
@@ -240,7 +240,65 @@ const getNotesFiltered = (req, res) => {
       res.json(results);
     }
   });
-};  
+};   */
+
+const getNotesFiltered = (req, res) => {
+  const { classe_id, eleve_id, matiere_id, typenote_id } = req.query;
+
+  console.log("Requête reçue avec paramètres :", req.query);
+
+  let filters = [];
+  let values = [];
+
+  const parsedClasseId = parseInt(classe_id, 10);
+  const parsedEleveId = parseInt(eleve_id, 10);
+  const parsedMatiereId = parseInt(matiere_id, 10);
+  const parsedTypeNoteId = parseInt(typenote_id, 10);
+
+  if (!isNaN(parsedClasseId)) {
+    filters.push("note.classe_id = ?");
+    values.push(parsedClasseId);
+  }
+
+  if (!isNaN(parsedEleveId)) {
+    filters.push("note.eleve_id = ?");
+    values.push(parsedEleveId);
+  }
+
+  if (!isNaN(parsedMatiereId)) {
+    filters.push("note.matiere_id = ?");
+    values.push(parsedMatiereId);
+  }
+
+  if (!isNaN(parsedTypeNoteId)) {
+    filters.push("note.typenote_id = ?");
+    values.push(parsedTypeNoteId);
+  }
+
+  const querySQL = `
+    SELECT note.id, eleve.nom AS eleve_nom, eleve.prenom AS eleve_prenom,
+           matiere.nom AS matiere_nom, typenote.nom AS typenote_nom,
+           note.valeur, classe.nom AS classe_nom
+    FROM note
+    INNER JOIN eleve ON note.eleve_id = eleve.id
+    INNER JOIN matiere ON note.matiere_id = matiere.id
+    INNER JOIN typenote ON note.typenote_id = typenote.id
+    INNER JOIN classe ON note.classe_id = classe.id
+    ${filters.length > 0 ? "WHERE " + filters.join(" AND ") : ""}`;
+
+  console.log("Requête SQL exécutée :", querySQL);
+  console.log("Valeurs utilisées :", values);
+
+  db.query(querySQL, values, (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la récupération des notes :", err);
+      res.status(500).send("Erreur lors de la récupération des notes");
+    } else {
+      res.json(results);
+    }
+  });
+};
+
 
 
 module.exports = { getNotes, postNote, updateNote, deleteNote, getNotesFiltered };
