@@ -34,6 +34,7 @@ const {
   postTypeNote,
   linkTypeNoteToMatiere,
   unlinkTypeNoteFromMatiere,
+  deleteTypeNote,
 } = require("./methods/typenote");
 const {
   getClasse,
@@ -95,6 +96,7 @@ app.get("/api/typenote", getTypeNote); // Récupérer les associations
 app.post("/api/typenote", postTypeNote); // Ajouter un type de note global
 app.post("/api/typenote/link", linkTypeNoteToMatiere); // Associer un type de note à une matière
 app.delete("/api/typenote/unlink", unlinkTypeNoteFromMatiere); // Supprimer l'association
+app.delete("/api/typenote", deleteTypeNote);
 
 app.get("/api/notes", getNotes); // Récupérer toutes les notes
 app.post("/api/notes", postNote); // Ajouter une nouvelle note

@@ -148,9 +148,33 @@ const unlinkTypeNoteFromMatiere = (req, res) => {
   });
 };
 
+// Supprimer un type de note 
+const deleteTypeNote = (req, res) => {
+  const { id } = req.body;
+
+  if (!id || isNaN(id)) {
+    res.status(400).send('Le champ "id" est requis et doit être un entier');
+    return;
+  }
+
+  const deleteSQL = "DELETE FROM typenote WHERE id = ?";
+  db.query(deleteSQL, [id], (err, result) => {
+    if (err) {
+      console.error("Erreur lors de la suppression du type de note :", err);
+      res.status(500).send("Erreur lors de la suppression du type de note");
+    } else if (result.affectedRows === 0) {
+      res.status(404).send("Type de note non trouvé");
+    } else {
+      res.send("Type de note supprimé avec succès");
+    }
+  });
+};
+
+
 module.exports = {
   getTypeNote,
   postTypeNote,
   linkTypeNoteToMatiere,
   unlinkTypeNoteFromMatiere,
+  deleteTypeNote
 };
