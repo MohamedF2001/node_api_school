@@ -40,12 +40,13 @@ const getTypeNote = (req, res) => {
       }
 
       // Récupérer les types de notes associés aux matières
-      const selectSQL = `
+      /* const selectSQL = `
           SELECT matiere_typenote.*, matiere.nom AS matiere_nom, typenote.nom AS typenote_nom
           FROM matiere_typenote
           INNER JOIN matiere ON matiere_typenote.matiere_id = matiere.id
           INNER JOIN typenote ON matiere_typenote.typenote_id = typenote.id
-        `;
+        `; */
+        const selectSQL = "SELECT * FROM typenote";
       db.query(selectSQL, (err, results) => {
         if (err) {
           console.error("Erreur lors de la récupération des données :", err);
