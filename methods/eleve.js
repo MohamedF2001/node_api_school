@@ -38,7 +38,7 @@ const getEleve = (req, res) => {
   };
 
 // Méthode POST : Insère un nouvel élève
-const postEleve = (req, res) => {
+/* const postEleve = (req, res) => {
   const { nom, prenom, date_naissance, classe_id , matricule } = req.body;
 
   if (!nom || typeof nom !== "string") {
@@ -89,7 +89,62 @@ const postEleve = (req, res) => {
       }
     }
   );
+}; */
+
+const postEleve = (req, res) => {
+  const { nom, prenom, date_naissance, classe_id, matricule } = req.body;
+
+  if (!nom || typeof nom !== "string") {
+    res
+      .status(400)
+      .send('Le champ "nom" est requis et doit être une chaîne de caractères');
+    return;
+  }
+  if (!prenom || typeof prenom !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "prenom" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+  if (!date_naissance || typeof date_naissance !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "date_naissance" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+  if (!matricule || typeof matricule !== "string") {
+    res.status(400).send('Le champ "matricule" est requis et doit être une chaîne de caractères');
+    return;
+  }
+
+  const insertSQL =
+    "INSERT INTO eleve (matricule, nom, prenom, date_naissance, classe_id) VALUES (?, ?, ?, ?, ?)";
+
+  db.query(
+    insertSQL,
+    [matricule, nom, prenom, date_naissance, classe_id || null],
+    (err, result) => {
+      if (err) {
+        console.error("Erreur lors de l'insertion des données :", err);
+        res.status(500).send("Erreur lors de l'insertion des données");
+      } else {
+        res.status(201).json({
+          id: result.insertId,
+          matricule,
+          nom,
+          prenom,
+          date_naissance,
+          classe_id,
+        });
+      }
+    }
+  );
 };
+
 
 // Méthode PUT : Modifie un élève par son ID
 const updateEleve = (req, res) => {
