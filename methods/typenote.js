@@ -81,6 +81,37 @@ const postTypeNote = (req, res) => {
   });
 };
 
+// Méthode PUT : Modifier un type de note
+const updateTypeNote = (req, res) => {
+  const { id } = req.params; // Récupérer l'id depuis l'URL
+  const { nom } = req.body; // Récupérer le nouveau nom depuis le body
+
+  if (!id || isNaN(id)) {
+    res.status(400).send('Le champ "id" est requis et doit être un entier');
+    return;
+  }
+
+  if (!nom || typeof nom !== "string") {
+    res
+      .status(400)
+      .send('Le champ "nom" est requis et doit être une chaîne de caractères');
+    return;
+  }
+
+  const updateSQL = "UPDATE typenote SET nom = ? WHERE id = ?";
+  db.query(updateSQL, [nom, id], (err, result) => {
+    if (err) {
+      console.error("Erreur lors de la mise à jour du type de note :", err);
+      res.status(500).send("Erreur lors de la mise à jour du type de note");
+    } else if (result.affectedRows === 0) {
+      res.status(404).send("Type de note non trouvé");
+    } else {
+      res.send("Type de note mis à jour avec succès");
+    }
+  });
+};
+
+
 // Méthode POST : Associe un type de note à une matière
 const linkTypeNoteToMatiere = (req, res) => {
   const { matiere_id, typenote_id } = req.body;
@@ -176,5 +207,6 @@ module.exports = {
   postTypeNote,
   linkTypeNoteToMatiere,
   unlinkTypeNoteFromMatiere,
-  deleteTypeNote
+  deleteTypeNote,
+  updateTypeNote
 };
