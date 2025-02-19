@@ -301,4 +301,108 @@ const getNotesFiltered = (req, res) => {
 
 
 
+/* const isValidId = (id) => id && !isNaN(parseInt(id, 10));
+
+// Récupérer toutes les notes
+const getNotes = (req, res) => {
+    db.query("SELECT * FROM note", (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la récupération des notes :", err);
+            return res.status(500).send("Erreur lors de la récupération des notes");
+        }
+        res.json(result);
+    });
+};
+
+// Récupérer des notes filtrées
+const getNotesFiltered = (req, res) => {
+    const { eleve_id, matiere_id, professeur_id } = req.query;
+    const filters = [];
+    const values = [];
+
+    if (isValidId(eleve_id)) {
+        filters.push("eleve_id = ?");
+        values.push(eleve_id);
+    }
+    if (isValidId(matiere_id)) {
+        filters.push("matiere_id = ?");
+        values.push(matiere_id);
+    }
+    if (isValidId(professeur_id)) {
+        filters.push("professeur_id = ?");
+        values.push(professeur_id);
+    }
+
+    if (values.length === 0) {
+        return res.status(400).send("Au moins un paramètre de filtre est requis");
+    }
+
+    const query = `SELECT * FROM note WHERE ${filters.join(" AND ")}`;
+    db.query(query, values, (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la récupération des notes filtrées :", err);
+            return res.status(500).send("Erreur lors de la récupération des notes");
+        }
+        res.json(result);
+    });
+};
+
+// Ajouter une note
+const addNote = (req, res) => {
+    const { eleve_id, matiere_id, professeur_id, valeur } = req.body;
+    if (!isValidId(eleve_id) || !isValidId(matiere_id) || !isValidId(professeur_id) || isNaN(valeur)) {
+        return res.status(400).send("Champs invalides ou manquants");
+    }
+
+    db.query("INSERT INTO note (eleve_id, matiere_id, professeur_id, valeur) VALUES (?, ?, ?, ?)", 
+        [eleve_id, matiere_id, professeur_id, valeur], (err, result) => {
+            if (err) {
+                console.error("Erreur lors de l'ajout de la note :", err);
+                return res.status(500).send("Erreur lors de l'ajout de la note");
+            }
+            res.status(201).send("Note ajoutée avec succès");
+        });
+};
+
+// Modifier une note
+const updateNote = (req, res) => {
+    const { id } = req.params;
+    const { valeur } = req.body;
+    if (!isValidId(id) || isNaN(valeur)) {
+        return res.status(400).send("Champs invalides ou manquants");
+    }
+
+    db.query("UPDATE note SET valeur = ? WHERE id = ?", [valeur, id], (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la mise à jour de la note :", err);
+            return res.status(500).send("Erreur lors de la mise à jour de la note");
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Note non trouvée");
+        }
+        res.send("Note mise à jour avec succès");
+    });
+};
+
+// Supprimer une note
+const deleteNote = (req, res) => {
+    const { id } = req.params;
+    if (!isValidId(id)) {
+        return res.status(400).send("Un ID valide est requis");
+    }
+
+    db.query("DELETE FROM note WHERE id = ?", [id], (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la suppression de la note :", err);
+            return res.status(500).send("Erreur lors de la suppression de la note");
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Note non trouvée");
+        }
+        res.send(`Note avec ID ${id} supprimée avec succès`);
+    });
+}; */
+
+
+
 module.exports = { getNotes, postNote, updateNote, deleteNote, getNotesFiltered };

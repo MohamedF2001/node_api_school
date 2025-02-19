@@ -44,6 +44,13 @@ const {
   deleteClasse,
 } = require("./methods/classe"); // Import des méthodes
 
+const{
+  getProgramme,
+  postProgramme,
+  updateProgramme,
+  deleteProgramme,
+} = require("./methods/program"); 
+
 const app = express();
 const PORT = 3000;
 
@@ -104,8 +111,15 @@ app.get("/api/notes", getNotes); // Récupérer toutes les notes
 app.post("/api/notes", postNote); // Ajouter une nouvelle note
 app.put("/api/notes/:id", updateNote); // Modifier une note existante
 app.delete("/api/notes", deleteNote); // Supprimer une note
+//app.delete("/notes/:id", deleteNote);
 //router.get("/notes/classe/:classe_id", noteController.getNotesByClasse);
 app.get("/api/notes/filter", getNotesFiltered);
+
+// Routes pour la table Professeur
+app.get("/api/programme", getProgramme); // Récupère les professeurs
+app.post("/api/programme", postProgramme); // Ajoute un nouveau professeur
+app.put("/api/programme/:id", updateProgramme); // Modifie un professeur
+app.delete("/api/programme", deleteProgramme); // Supprime un professeur
 
 //Filtrer par classe :
 //GET /notes/filter?classe_id=2
