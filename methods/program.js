@@ -110,9 +110,38 @@ const deleteProgramme = (req, res) => {
   });
 };
 
+// Récupérer les programmes d'une classe spécifique
+const getProgrammesByClasse = (req, res) => {
+  const { classe_id } = req.params;
+
+  if (!classe_id || isNaN(classe_id)) {
+    res.status(400).send('Le champ "classe_id" est requis et doit être un entier');
+    return;
+  }
+
+  const selectSQL = `
+    SELECT programme.id, matiere.nom AS matiere_nom, classe.nom AS classe_nom, programme.jour, programme.heure_debut, programme.heure_fin
+    FROM programme
+    INNER JOIN matiere ON programme.matiere_id = matiere.id
+    INNER JOIN classe ON programme.classe_id = classe.id
+    WHERE programme.classe_id = ?
+  `;
+
+  db.query(selectSQL, [classe_id], (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la récupération des programmes :", err);
+      res.status(500).send("Erreur lors de la récupération des programmes");
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+
 module.exports = {
   getProgramme,
   postProgramme,
   updateProgramme,
-  deleteProgramme
+  deleteProgramme,
+  getProgrammesByClasse
 };

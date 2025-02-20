@@ -49,6 +49,7 @@ const{
   postProgramme,
   updateProgramme,
   deleteProgramme,
+  getProgrammesByClasse,
 } = require("./methods/program"); 
 
 const app = express();
@@ -116,10 +117,12 @@ app.delete("/api/notes", deleteNote); // Supprimer une note
 app.get("/api/notes/filter", getNotesFiltered);
 
 // Routes pour la table Professeur
-app.get("/api/programme", getProgramme); // Récupère les professeurs
-app.post("/api/programme", postProgramme); // Ajoute un nouveau professeur
-app.put("/api/programme/:id", updateProgramme); // Modifie un professeur
-app.delete("/api/programme", deleteProgramme); // Supprime un professeur
+app.get("/api/programme", getProgramme); // Récupère les programme
+app.post("/api/programme", postProgramme); // Ajoute un nouveau programme
+app.put("/api/programme/:id", updateProgramme); // Modifie un programme
+app.delete("/api/programme", deleteProgramme); // Supprime un programme
+app.get("/api/programme/classe/:classe_id", getProgrammesByClasse)
+
 
 //Filtrer par classe :
 //GET /notes/filter?classe_id=2
