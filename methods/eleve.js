@@ -8,7 +8,7 @@ const getEleve = (req, res) => {
             nom VARCHAR(255) NOT NULL,
             prenom VARCHAR(255) NOT NULL,
             sexe VARCHAR(50),
-            nationalite VARCHAR(100)
+            nationalite VARCHAR(100),
             date_naissance VARCHAR(255) NOT NULL,
             classe_id INT,
             FOREIGN KEY (classe_id) REFERENCES classe(id) ON DELETE SET NULL
