@@ -7,6 +7,8 @@ const getProfesseur = (req, res) => {
         id INT AUTO_INCREMENT PRIMARY KEY,
         nom VARCHAR(255) NOT NULL,
         prenom VARCHAR(255) NOT NULL,
+        sexe VARCHAR(50),
+        nationalite VARCHAR(100),
         email VARCHAR(200) NOT NULL UNIQUE,
         matiere_id INT,
         FOREIGN KEY (matiere_id) REFERENCES matiere(id) ON DELETE SET NULL
@@ -38,7 +40,7 @@ const getProfesseur = (req, res) => {
 
 // Méthode POST : Insère un nouveau professeur
 const postProfesseur = (req, res) => {
-  const { nom, prenom, email, matiere_id } = req.body;
+  const { nom, prenom, sexe, nationalite, email, matiere_id } = req.body;
 
   if (!nom || typeof nom !== "string") {
     res
@@ -51,6 +53,21 @@ const postProfesseur = (req, res) => {
       .status(400)
       .send(
         'Le champ "prenom" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+  if (!sexe || typeof sexe !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "sexe" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  } if (!nationalite || typeof nationalite !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "nationalite" est requis et doit être une chaîne de caractères'
       );
     return;
   }
@@ -67,7 +84,7 @@ const postProfesseur = (req, res) => {
     "INSERT INTO professeur (nom, prenom, email, matiere_id) VALUES (?, ?, ?, ?)";
   db.query(
     insertSQL,
-    [nom, prenom, email, matiere_id || null],
+    [nom, prenom, sexe, nationalite, email, matiere_id || null],
     (err, result) => {
       if (err) {
         console.error("Erreur lors de l'insertion des données :", err);
@@ -75,7 +92,7 @@ const postProfesseur = (req, res) => {
       } else {
         res
           .status(201)
-          .json({ id: result.insertId, nom, prenom, email, matiere_id });
+          .json({ id: result.insertId, nom, prenom, sexe, nationalite, email, matiere_id });
       }
     }
   );
@@ -84,7 +101,7 @@ const postProfesseur = (req, res) => {
 // Méthode PUT : Modifie un professeur par son ID
 const updateProfesseur = (req, res) => {
   const { id } = req.params;
-  const { nom, prenom, email, matiere_id } = req.body;
+  const { nom, prenom, sexe, nationalite, email, matiere_id } = req.body;
 
   // Validation des données
   if (!id || isNaN(id)) {
@@ -108,6 +125,23 @@ const updateProfesseur = (req, res) => {
     return;
   }
 
+  if (!sexe || typeof sexe !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "sexe" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+  if (!nationalite || typeof nationalite !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "nationalite" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+
   if (!email || typeof email !== "string") {
     res
       .status(400)
@@ -125,13 +159,13 @@ const updateProfesseur = (req, res) => {
   // Requête SQL pour la mise à jour
   const updateSQL = `
       UPDATE professeur 
-      SET nom = ?, prenom = ?, email = ?, matiere_id = ? 
+      SET nom = ?, prenom = ?, sexe = ?, nationalite = ?, email = ?, matiere_id = ? 
       WHERE id = ?
     `;
 
   db.query(
     updateSQL,
-    [nom, prenom, email, matiere_id || null, id],
+    [nom, prenom, sexe, nationalite, email, matiere_id || null, id],
     (err, result) => {
       if (err) {
         console.error("Erreur lors de la mise à jour du professeur :", err);
@@ -144,7 +178,7 @@ const updateProfesseur = (req, res) => {
         return;
       }
 
-      res.json({ id, nom, prenom, email, matiere_id });
+      res.json({ id, nom, sexe, nationalite, prenom, email, matiere_id });
     }
   );
 };
