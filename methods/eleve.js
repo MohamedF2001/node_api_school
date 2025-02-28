@@ -7,6 +7,8 @@ const getEleve = (req, res) => {
             id INT AUTO_INCREMENT PRIMARY KEY,
             nom VARCHAR(255) NOT NULL,
             prenom VARCHAR(255) NOT NULL,
+            sexe VARCHAR(50),
+            nationalite VARCHAR(100)
             date_naissance VARCHAR(255) NOT NULL,
             classe_id INT,
             FOREIGN KEY (classe_id) REFERENCES classe(id) ON DELETE SET NULL
@@ -92,7 +94,7 @@ const getEleve = (req, res) => {
 }; */
 
 const postEleve = (req, res) => {
-  const { nom, prenom, date_naissance, classe_id, matricule } = req.body;
+  const { nom, prenom, date_naissance, classe_id, matricule, sexe, nationalite } = req.body;
 
   if (!nom || typeof nom !== "string") {
     res
@@ -120,13 +122,21 @@ const postEleve = (req, res) => {
     res.status(400).send('Le champ "matricule" est requis et doit être une chaîne de caractères');
     return;
   }
+  if (!sexe || typeof sexe !== "string") {
+    res.status(400).send('Le champ "sexe" est requis et doit être une chaîne de caractères');
+    return;
+  }
+  if (!nationalite || typeof nationalite !== "string") {
+    res.status(400).send('Le champ "nationalite" est requis et doit être une chaîne de caractères');
+    return;
+  }
 
   const insertSQL =
-    "INSERT INTO eleve (matricule, nom, prenom, date_naissance, classe_id) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO eleve (matricule, nom, prenom, sexe, nationalite, date_naissance, classe_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
   db.query(
     insertSQL,
-    [matricule, nom, prenom, date_naissance, classe_id || null],
+    [matricule, nom, prenom, sexe, nationalite, date_naissance, classe_id || null],
     (err, result) => {
       if (err) {
         console.error("Erreur lors de l'insertion des données :", err);
@@ -137,6 +147,8 @@ const postEleve = (req, res) => {
           matricule,
           nom,
           prenom,
+          sexe,
+          nationalite,
           date_naissance,
           classe_id,
         });
@@ -149,7 +161,7 @@ const postEleve = (req, res) => {
 // Méthode PUT : Modifie un élève par son ID
 const updateEleve = (req, res) => {
   const { id } = req.params;
-  const { nom, prenom, date_naissance, classe_id } = req.body;
+  const { nom, prenom, sexe, nationalite, date_naissance, classe_id } = req.body;
 
   // Validation des données
   if (!id || isNaN(id)) {
@@ -173,6 +185,24 @@ const updateEleve = (req, res) => {
     return;
   }
 
+  if (!sexe || typeof sexe !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "sexe" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+
+  if (!nationalite || typeof nationalite !== "string") {
+    res
+      .status(400)
+      .send(
+        'Le champ "nationalité" est requis et doit être une chaîne de caractères'
+      );
+    return;
+  }
+
   if (!date_naissance || typeof date_naissance !== "string") {
     res
       .status(400)
@@ -190,12 +220,12 @@ const updateEleve = (req, res) => {
   // Requête SQL pour la mise à jour
   const updateSQL = `
         UPDATE eleve 
-        SET nom = ?, prenom = ?, date_naissance = ?, classe_id = ? 
+        SET nom = ?, prenom = ?, sexe = ?, nationalite = ?, date_naissance = ?, classe_id = ? 
         WHERE id = ?
       `;
   db.query(
     updateSQL,
-    [nom, prenom, date_naissance, classe_id || null, id],
+    [nom, prenom, sexe, nationalite, date_naissance, classe_id || null, id],
     (err, result) => {
       if (err) {
         console.error("Erreur lors de la mise à jour de l'élève :", err);
@@ -209,7 +239,7 @@ const updateEleve = (req, res) => {
       }
 
       // Réponse avec les données mises à jour
-      res.json({ id, nom, prenom, date_naissance, classe_id });
+      res.json({ id, nom, prenom,sexe, nationalite, date_naissance, classe_id });
     }
   );
 };
