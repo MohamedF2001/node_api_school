@@ -141,27 +141,3 @@ app.get("/api/programme/classe/:classe_id", getProgrammesByClasse)
 app.listen(PORT, () => {
   console.log(`Serveur en cours d'exécution sur http://localhost:${PORT}`);
 });
-
-// Démarrage du serveur
-const alterTableSQL = `
-  ALTER TABLE eleve ADD COLUMN sexe VARCHAR(50) UNIQUE NOT NULL;
-`;
-
-app.listen(PORT, () => {
-  console.log(`Serveur en cours d'exécution sur http://localhost:${PORT}`);
-
-  // Exécuter la requête SQL pour ajouter la colonne
-  db.query(alterTableSQL, (err) => {
-    if (err) {
-      if (err.code === 'ER_DUP_FIELDNAME') {
-        console.log("La colonne 'sexe' existe déjà.");
-      } else {
-        console.error("Erreur lors de la modification de la table :", err);
-      }
-    } else {
-      console.log("Colonne 'sexe' ajoutée avec succès !");
-    }
-
-    db.end(); // Fermer la connexion après l'exécution
-  });
-});
