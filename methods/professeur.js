@@ -81,7 +81,7 @@ const postProfesseur = (req, res) => {
   }
 
   const insertSQL =
-    "INSERT INTO professeur (nom, prenom, email, matiere_id) VALUES (?, ?, ?, ?)";
+    "INSERT INTO professeur (nom, prenom, sexe, nationalite, email, matiere_id) VALUES (?, ?,?,?, ?, ?)";
   db.query(
     insertSQL,
     [nom, prenom, sexe, nationalite, email, matiere_id || null],
